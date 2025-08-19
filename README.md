@@ -9,10 +9,12 @@
 # On Linux / Mac
 export RABBITMQ_URL="amqp://admin:guest@localhost"
 export CME_RESOURCE_URL="..."
+export PTAX_RESOURCE_URL="..."
 
 # On Windows
 $env:RABBITMQ_URL = "amqp://admin:guest@localhost"
 $env:CME_RESOURCE_URL = "..."
+$env:PTAX_RESOURCE_URL = "..."
 ```
 
 2. Create a shared network to establish connection with RabbitMQ at multiple
