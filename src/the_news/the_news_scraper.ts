@@ -95,7 +95,7 @@ export class TheNewsScraper {
 
 		catch (error) {
 			if (error && typeof error === 'object' && 'message' in error) {
-				this.logger.error("The news scrap failed: ", error.message);
+				this.logger.error('The news scrap failed', error.message);
 			}
 
 			throw error;

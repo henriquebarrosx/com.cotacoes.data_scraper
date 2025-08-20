@@ -75,7 +75,7 @@ export class PtaxScraper {
 
 		catch (error) {
 			if (error && typeof error === 'object' && 'message' in error) {
-				this.logger.error("Cannot scrap ptax data: ", error.message);
+				this.logger.error('Ptax scrap failed', error.message);
 			}
 
 			throw error;

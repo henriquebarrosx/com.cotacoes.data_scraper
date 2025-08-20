@@ -73,7 +73,7 @@ export class MessageBroker {
 		)
 
 		this.logger.info(
-			'Publishing new message: \n',
+			'Publishing new message',
 			{
 				event: 'PUBLISH',
 				queue: queue,
@@ -108,7 +108,7 @@ export class MessageBroker {
 				const MAX_ALLOWED_RETRIES = 5;
 
 				this.logger.info(
-					'Receiving new message: \n',
+					'Receiving new message',
 					{
 						id: props.correlationId,
 						event: 'RECEIVED',

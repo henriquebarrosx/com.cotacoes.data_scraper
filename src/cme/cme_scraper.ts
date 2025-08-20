@@ -72,7 +72,7 @@ export class CmeScraper {
 
 		catch (error) {
 			if (error && typeof error === 'object' && 'message' in error) {
-				this.logger.error("Cme data scrap failed: ", error.message);
+				this.logger.error('Cme data scrap failed', error.message);
 			}
 
 			throw error;
