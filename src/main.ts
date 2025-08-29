@@ -10,35 +10,35 @@ import { TheNewsInput } from "./the_news/the_news_scraper.ts";
 await messageBroker.connect();
 
 await messageBroker.listen(
-  {
-    queue: MessageBrokerQueues.CME_DATA_SCRAPER,
-    callback: async ({ correlationId }) => {
-      await cmeWorker.execute(correlationId);
-    }
-  }
+	{
+		queue: MessageBrokerQueues.CME_DATA_SCRAPER,
+		callback: async ({ correlationId }) => {
+			await cmeWorker.execute(correlationId);
+		}
+	}
 );
 
 await messageBroker.listen(
-  {
-    queue: MessageBrokerQueues.PTAX_DATA_SCRAPER,
-    callback: async ({ correlationId, data }) => {
-      const { fromDate } = JSON.parse(data) as PtaxInput;
-      await ptaxWorker.execute(correlationId, { fromDate });
-    }
-  }
+	{
+		queue: MessageBrokerQueues.PTAX_DATA_SCRAPER,
+		callback: async ({ correlationId, data }) => {
+			const { fromDate } = JSON.parse(data) as PtaxInput;
+			await ptaxWorker.execute(correlationId, { fromDate });
+		}
+	}
 );
 
 await messageBroker.listen(
-  {
-    queue: MessageBrokerQueues.THE_NEWS_SCRAPER,
-    callback: async ({ correlationId, data }) => {
-      const params = JSON.parse(data) as TheNewsInput ?? {};
+	{
+		queue: MessageBrokerQueues.THE_NEWS_SCRAPER,
+		callback: async ({ correlationId, data }) => {
+			const params = JSON.parse(data) as TheNewsInput ?? {};
 
-      const fromDate = params['fromDate'];
-      const today = new Date().toISOString();
-      const targetDate = fromDate ?? today;
+			const fromDate = params['fromDate'];
+			const today = new Date().toISOString();
+			const targetDate = fromDate ?? today;
 
-      await theNewsWorker.execute(correlationId, { fromDate: targetDate });
-    }
-  }
+			await theNewsWorker.execute(correlationId, { fromDate: targetDate });
+		}
+	}
 );

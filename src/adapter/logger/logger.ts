@@ -11,18 +11,13 @@ export class Logger {
 	}
 
 	error(message: string, reason?: string | unknown): void {
-		const error = new Error(reason ? reason.toString() : '');
-
 		const params = {
 			type: 'ERROR',
 			title: message,
 			timestamp: new Date().toString(),
+			reason: reason,
 		}
 
-		console.log()
 		console.error(params)
-		console.log()
-		console.error(error.stack)
-		console.log()
 	}
 }

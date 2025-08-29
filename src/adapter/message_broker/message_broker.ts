@@ -38,11 +38,24 @@ export class MessageBroker {
 	) { }
 
 	async connect() {
-		const url = Deno.env.get("RABBITMQ_URL");
-		if (!url) throw new Error('Cannot initilize message broker: url not defined');
+		while (!this.conn) {
+			try {
+				const url = Deno.env.get("RABBITMQ_URL");
+				if (!url) throw new Error('Cannot initilize message broker: url not defined');
 
-		this.conn = await connect(url);
-		this.logger.info('Message broker connection established');
+				this.conn = await connect(url);
+				this.logger.info('Message broker connection established');
+			}
+
+			catch (error) {
+				if (error && typeof error === 'object' && 'message' in error) {
+					this.logger.error("Failed to connect message broker, retrying in 5s", error.message);
+				}
+
+				await new Promise(res => setTimeout(res, 5000));
+				this.conn = undefined;
+			}
+		}
 	}
 
 	async publish({ queue, message }: PublishInput) {
